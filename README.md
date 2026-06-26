@@ -5,18 +5,18 @@
 | Name                                                          |    Stmts |     Miss |   Cover |   Missing |
 |-------------------------------------------------------------- | -------: | -------: | ------: | --------: |
 | packages/chromophore/src/chromophore/\_\_init\_\_.py          |        5 |        0 |    100% |           |
-| packages/chromophore/src/chromophore/\_colormap.py            |       67 |       16 |     76% |9-10, 18-21, 75-86 |
+| packages/chromophore/src/chromophore/\_colormap.py            |       68 |       17 |     75% |10-11, 19-23, 74-85 |
 | packages/chromophore/src/chromophore/\_palettes.py            |        3 |        0 |    100% |           |
 | packages/chromophore/tests/test\_colormap.py                  |       69 |        0 |    100% |           |
-| packages/pytochrome/src/pytochrome/\_\_init\_\_.py            |       92 |       40 |     57% |90, 95, 100-102, 120-121, 130-131, 158-189, 207, 223, 227, 230, 239, 279-283, 301-302 |
+| packages/pytochrome/src/pytochrome/\_\_init\_\_.py            |       92 |       40 |     57% |92, 97, 102-104, 123-124, 133-134, 162-196, 215, 231, 235, 238, 247, 287-298, 318-319 |
 | packages/pytochrome/src/pytochrome/\_backends/\_\_init\_\_.py |        4 |        0 |    100% |           |
-| packages/pytochrome/src/pytochrome/\_backends/\_base.py       |       40 |       14 |     65% |41-45, 71-74, 81-84, 88 |
-| packages/pytochrome/src/pytochrome/\_backends/\_mpl.py        |       73 |       57 |     22% |26-28, 35, 43-168, 176-178, 185 |
-| packages/pytochrome/src/pytochrome/\_backends/\_plotly.py     |       56 |       38 |     32% |18, 37, 54, 104-105, 110, 130-134, 142-153, 161-168, 176-195, 198 |
-| packages/pytochrome/src/pytochrome/\_cmaps.py                 |       21 |        7 |     67% |11-14, 19, 27-28 |
+| packages/pytochrome/src/pytochrome/\_backends/\_base.py       |       40 |       14 |     65% |42-47, 73-76, 83-86, 90 |
+| packages/pytochrome/src/pytochrome/\_backends/\_mpl.py        |       74 |       57 |     23% |34-36, 43, 51-179, 187-189, 196 |
+| packages/pytochrome/src/pytochrome/\_backends/\_plotly.py     |       56 |       38 |     32% |20, 39, 56, 106-107, 112, 133-138, 146-157, 165-172, 180-200, 203 |
+| packages/pytochrome/src/pytochrome/\_cmaps.py                 |       21 |        7 |     67% |12-15, 20, 31-32 |
 | packages/pytochrome/src/pytochrome/\_tokens.py                |       30 |        0 |    100% |           |
-| packages/pytochrome/tests/test\_tokens.py                     |       45 |        1 |     98% |        62 |
-| **TOTAL**                                                     |  **505** |  **173** | **66%** |           |
+| packages/pytochrome/tests/test\_tokens.py                     |       46 |        1 |     98% |        76 |
+| **TOTAL**                                                     |  **508** |  **174** | **66%** |           |
 
 
 ## Setup coverage badge

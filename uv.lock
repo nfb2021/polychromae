@@ -940,6 +940,7 @@ name = "pytochrome"
 version = "0.1.0"
 source = { editable = "packages/pytochrome" }
 dependencies = [
+    { name = "chromophore" },
     { name = "matplotlib" },
     { name = "plotly" },
 ]
@@ -952,6 +953,7 @@ cmaps = [
 
 [package.metadata]
 requires-dist = [
+    { name = "chromophore", editable = "packages/chromophore" },
     { name = "cmcrameri", marker = "extra == 'cmaps'", specifier = ">=1.9" },
     { name = "cmocean", marker = "extra == 'cmaps'", specifier = ">=3.0" },
     { name = "matplotlib", specifier = ">=3.9" },

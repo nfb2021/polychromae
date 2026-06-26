@@ -99,9 +99,9 @@ clean:
     find . -name '__pycache__' -exec rm -fr {} +
 
 
-# serve the documentation on localhost
-docs:
-    uv run zensical serve
+# serve the documentation on localhost [port:9000]
+docs port="9000":
+    uv run zensical serve --dev-addr localhost:{{ port }}
 
 _ensure_clean:
     @git diff --quiet

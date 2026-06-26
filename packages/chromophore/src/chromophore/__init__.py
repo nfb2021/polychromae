@@ -25,6 +25,7 @@ Usage
 from __future__ import annotations
 
 from chromophore._colormap import Colormap
+from chromophore._palettes import palettes
 
 __version__ = "0.1.0"
-__all__ = ["Colormap"]
+__all__ = ["Colormap", "palettes"]

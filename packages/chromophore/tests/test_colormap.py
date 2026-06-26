@@ -74,3 +74,38 @@ def test_repr_html_swatch() -> None:
     html = cm._repr_html_()
     assert "#2D5016" in html
     assert "forest" in html
+
+
+# ---------------------------------------------------------------------------
+# Natural palettes
+# ---------------------------------------------------------------------------
+
+from chromophore import palettes  # noqa: E402
+
+
+def test_palettes_names() -> None:
+    expected = {"forest_canopy", "desert_sunset", "woodland_trail", "coastal_morning", "sunset_glow", "canyon_sunset"}
+    assert set(palettes.keys()) == expected
+
+
+def test_palettes_are_colormap_instances() -> None:
+    for name, cm in palettes.items():
+        assert isinstance(cm, Colormap), f"{name} is not a Colormap"
+
+
+def test_palettes_discrete() -> None:
+    for name, cm in palettes.items():
+        assert cm.discrete, f"{name} should be discrete=True"
+
+
+def test_palettes_five_stops() -> None:
+    for name, cm in palettes.items():
+        assert len(cm.colors) == 5, f"{name} should have 5 stops, got {len(cm.colors)}"
+
+
+def test_palettes_valid_hex() -> None:
+    import re
+    _HEX = re.compile(r"^#[0-9A-Fa-f]{6}$")
+    for name, cm in palettes.items():
+        for c in cm.colors:
+            assert _HEX.match(c), f"{name}: invalid hex {c!r}"

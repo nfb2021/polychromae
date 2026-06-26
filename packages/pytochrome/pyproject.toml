@@ -8,6 +8,7 @@ license = { text = "MIT" }
 authors = [{ name = "Nicolas Bader", email = "nico.bader@icloud.com" }]
 
 dependencies = [
+    "chromophore>=0.1.0",
     "matplotlib>=3.9",
     "plotly>=5.24",
 ]
@@ -20,6 +21,9 @@ cmaps = [
 
 [project.urls]
 Repository = "https://github.com/nfb2021/pytochrome"
+
+[tool.uv.sources]
+chromophore = { workspace = true }
 
 # ---------------------------------------------------------------------------
 # Build

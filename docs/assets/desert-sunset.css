@@ -1,171 +1,242 @@
 /*
  * Desert Sunset theme for polychromae docs
  *
- * Palette:
+ * Palette source (pytochrome._cmaps desert_sunset):
  *   #CC5500  burnt orange   (1)
  *   #E2725B  terra cotta    (2)
- *   #F4A460  sandy brown    (3) — light mode bg
+ *   #F4A460  sandy brown    (3) — light mode bg base
  *   #C08081  dusty rose     (4)
- *   #5D3A6D  deep plum      (5) — dark mode bg
+ *   #5D3A6D  deep plum      (5) — dark mode bg base
+ *
+ * Adjusted per user:
+ *   Dark bg  → #421258  (plum: darker L 33%→21%, saturated S 30%→65%)
+ *   Light bg → #FFAF64  (peach: brighter, fully saturated, same hue)
  */
 
 /* ── LIGHT MODE ──────────────────────────────────────────────────────────
-   Background: #F4A460 (sandy brown)
-   Text:       #5D3A6D (deep plum)
-   Accent:     #CC5500 (burnt orange)
-   Links:      #5D3A6D → hover #CC5500
+   Background: #FFAF64  (bright peach)
+   Text:       #200630  (near-black plum — high contrast on peach)
+   Links:      #421258  (saturated plum)
+   Accent:     #CC5500  (burnt orange)
    ──────────────────────────────────────────────────────────────────────── */
 [data-md-color-scheme="default"] {
-  /* Primary (nav header) */
-  --md-primary-fg-color:             #5D3A6D;
-  --md-primary-fg-color--light:      #7A5085;
-  --md-primary-fg-color--dark:       #4A2A5A;
-  --md-primary-bg-color:             #F4A460;
-  --md-primary-bg-color--light:      rgba(244, 164, 96, 0.7);
+  /* Primary (nav header = saturated plum) */
+  --md-primary-fg-color:             #421258;
+  --md-primary-fg-color--light:      #622080;
+  --md-primary-fg-color--dark:       #2D0840;
+  --md-primary-bg-color:             #FFAF64;
+  --md-primary-bg-color--light:      rgba(255, 175, 100, 0.7);
 
-  /* Accent (buttons, highlights, hover) */
+  /* Accent */
   --md-accent-fg-color:              #CC5500;
   --md-accent-fg-color--transparent: rgba(204, 85, 0, 0.1);
-  --md-accent-bg-color:              #F4A460;
+  --md-accent-bg-color:              #FFAF64;
 
   /* Page background */
-  --md-default-bg-color:             #F4A460;
-  --md-default-bg-color--light:      rgba(244, 164, 96, 0.54);
-  --md-default-bg-color--lighter:    rgba(244, 164, 96, 0.26);
-  --md-default-bg-color--lightest:   rgba(244, 164, 96, 0.07);
+  --md-default-bg-color:             #FFAF64;
+  --md-default-bg-color--light:      rgba(255, 175, 100, 0.54);
+  --md-default-bg-color--lighter:    rgba(255, 175, 100, 0.26);
+  --md-default-bg-color--lightest:   rgba(255, 175, 100, 0.07);
 
   /* Body text */
-  --md-default-fg-color:             #3A1A4D;
-  --md-default-fg-color--light:      rgba(58, 26, 77, 0.7);
-  --md-default-fg-color--lighter:    rgba(58, 26, 77, 0.4);
-  --md-default-fg-color--lightest:   rgba(58, 26, 77, 0.12);
+  --md-default-fg-color:             #200630;
+  --md-default-fg-color--light:      rgba(32, 6, 48, 0.7);
+  --md-default-fg-color--lighter:    rgba(32, 6, 48, 0.4);
+  --md-default-fg-color--lightest:   rgba(32, 6, 48, 0.12);
 
-  /* Typeset (content) */
-  --md-typeset-color:                #3A1A4D;
-  --md-typeset-a-color:              #5D3A6D;
+  /* Typeset */
+  --md-typeset-color:                #200630;
+  --md-typeset-a-color:              #421258;
   --md-typeset-mark-color:           rgba(204, 85, 0, 0.25);
-  --md-typeset-kbd-color:            #F4A460;
+  --md-typeset-kbd-color:            #FFAF64;
 
   /* Code */
-  --md-code-fg-color:                #3A1A4D;
-  --md-code-bg-color:                rgba(93, 58, 109, 0.1);
+  --md-code-fg-color:                #200630;
+  --md-code-bg-color:                rgba(66, 18, 88, 0.1);
 
-  /* Admonition / footer */
-  --md-footer-bg-color:              #5D3A6D;
-  --md-footer-bg-color--dark:        #4A2A5A;
-  --md-footer-fg-color:              #F4A460;
-  --md-footer-fg-color--light:       rgba(244, 164, 96, 0.7);
-  --md-footer-fg-color--lighter:     rgba(244, 164, 96, 0.45);
+  /* Footer */
+  --md-footer-bg-color:              #421258;
+  --md-footer-bg-color--dark:        #2D0840;
+  --md-footer-fg-color:              #FFAF64;
+  --md-footer-fg-color--light:       rgba(255, 175, 100, 0.7);
+  --md-footer-fg-color--lighter:     rgba(255, 175, 100, 0.45);
 }
 
-/* Headings — burnt orange on sandy */
+/* Nav header — force plum in light mode */
+[data-md-color-scheme="default"] .md-header {
+  background-color: #421258;
+  color: #FFAF64;
+}
+[data-md-color-scheme="default"] .md-header__title,
+[data-md-color-scheme="default"] .md-header .md-icon,
+[data-md-color-scheme="default"] .md-header__button {
+  color: #FFAF64;
+}
+[data-md-color-scheme="default"] .md-search__input {
+  background-color: rgba(255, 175, 100, 0.15);
+  color: #FFAF64;
+}
+[data-md-color-scheme="default"] .md-search__input::placeholder {
+  color: rgba(255, 175, 100, 0.6);
+}
+
+/* Headings — burnt orange on bright peach */
 [data-md-color-scheme="default"] .md-typeset h1,
 [data-md-color-scheme="default"] .md-typeset h2,
 [data-md-color-scheme="default"] .md-typeset h3 {
   color: #CC5500;
 }
 
-/* Inline code highlight in light mode */
+/* Inline code in light mode */
 [data-md-color-scheme="default"] .md-typeset code {
-  background-color: rgba(93, 58, 109, 0.1);
-  color: #5D3A6D;
+  background-color: rgba(66, 18, 88, 0.1);
+  color: #421258;
 }
 
 /* ── DARK MODE ───────────────────────────────────────────────────────────
-   Background: #5D3A6D (deep plum)
-   Text:       #F4A460 (sandy brown)
-   Accent:     #CC5500 (burnt orange)
-   Links:      #E2725B → hover #CC5500
+   Background: #421258  (deep saturated plum)
+   Text:       #FFAF64  (bright peach)
+   Links:      #E2725B  (terra cotta) → hover #CC5500
+   Accent:     #CC5500  (burnt orange)
    ──────────────────────────────────────────────────────────────────────── */
 [data-md-color-scheme="slate"] {
-  --md-hue: 280;   /* steers Material's auto-generated slate variants toward purple */
+  --md-hue: 282;
 
-  /* Primary (nav header) */
-  --md-primary-fg-color:             #4A2A5A;
-  --md-primary-fg-color--light:      #5D3A6D;
-  --md-primary-fg-color--dark:       #3A1A4A;
-  --md-primary-bg-color:             #F4A460;
-  --md-primary-bg-color--light:      rgba(244, 164, 96, 0.7);
+  /* Primary (nav header = darker plum) */
+  --md-primary-fg-color:             #2D0840;
+  --md-primary-fg-color--light:      #421258;
+  --md-primary-fg-color--dark:       #1A0428;
+  --md-primary-bg-color:             #FFAF64;
+  --md-primary-bg-color--light:      rgba(255, 175, 100, 0.7);
 
   /* Accent */
   --md-accent-fg-color:              #CC5500;
   --md-accent-fg-color--transparent: rgba(204, 85, 0, 0.1);
-  --md-accent-bg-color:              #5D3A6D;
+  --md-accent-bg-color:              #421258;
 
   /* Page background */
-  --md-default-bg-color:             #5D3A6D;
-  --md-default-bg-color--light:      rgba(93, 58, 109, 0.54);
-  --md-default-bg-color--lighter:    rgba(93, 58, 109, 0.26);
-  --md-default-bg-color--lightest:   rgba(93, 58, 109, 0.07);
+  --md-default-bg-color:             #421258;
+  --md-default-bg-color--light:      rgba(66, 18, 88, 0.54);
+  --md-default-bg-color--lighter:    rgba(66, 18, 88, 0.26);
+  --md-default-bg-color--lightest:   rgba(66, 18, 88, 0.07);
 
   /* Body text */
-  --md-default-fg-color:             #F4A460;
-  --md-default-fg-color--light:      rgba(244, 164, 96, 0.7);
-  --md-default-fg-color--lighter:    rgba(244, 164, 96, 0.4);
-  --md-default-fg-color--lightest:   rgba(244, 164, 96, 0.12);
+  --md-default-fg-color:             #FFAF64;
+  --md-default-fg-color--light:      rgba(255, 175, 100, 0.7);
+  --md-default-fg-color--lighter:    rgba(255, 175, 100, 0.4);
+  --md-default-fg-color--lightest:   rgba(255, 175, 100, 0.12);
 
   /* Typeset */
-  --md-typeset-color:                #F4A460;
+  --md-typeset-color:                #FFAF64;
   --md-typeset-a-color:              #E2725B;
   --md-typeset-mark-color:           rgba(204, 85, 0, 0.4);
-  --md-typeset-kbd-color:            #5D3A6D;
+  --md-typeset-kbd-color:            #421258;
 
   /* Code */
-  --md-code-fg-color:                #F4A460;
-  --md-code-bg-color:                rgba(244, 164, 96, 0.06);
+  --md-code-fg-color:                #FFAF64;
+  --md-code-bg-color:                rgba(255, 175, 100, 0.07);
 
   /* Footer */
-  --md-footer-bg-color:              #4A2A5A;
-  --md-footer-bg-color--dark:        #3A1A4A;
-  --md-footer-fg-color:              #F4A460;
-  --md-footer-fg-color--light:       rgba(244, 164, 96, 0.7);
-  --md-footer-fg-color--lighter:     rgba(244, 164, 96, 0.45);
+  --md-footer-bg-color:              #2D0840;
+  --md-footer-bg-color--dark:        #1A0428;
+  --md-footer-fg-color:              #FFAF64;
+  --md-footer-fg-color--light:       rgba(255, 175, 100, 0.7);
+  --md-footer-fg-color--lighter:     rgba(255, 175, 100, 0.45);
 
-  /* Shadow */
-  --md-shadow-z1: 0 0.2rem 0.5rem rgba(0,0,0,.4), 0 0 0.05rem rgba(0,0,0,.3);
-  --md-shadow-z2: 0 0.2rem 0.5rem rgba(0,0,0,.5), 0 0 0.05rem rgba(0,0,0,.35);
-  --md-shadow-z3: 0 0.2rem 0.5rem rgba(0,0,0,.6), 0 0 0.05rem rgba(0,0,0,.4);
+  /* Shadows */
+  --md-shadow-z1: 0 0.2rem 0.5rem rgba(0,0,0,.5), 0 0 0.05rem rgba(0,0,0,.35);
+  --md-shadow-z2: 0 0.2rem 0.5rem rgba(0,0,0,.6), 0 0 0.05rem rgba(0,0,0,.4);
+  --md-shadow-z3: 0 0.2rem 0.5rem rgba(0,0,0,.7), 0 0 0.05rem rgba(0,0,0,.5);
 }
 
-/* Headings — terra cotta on plum */
+/* Dark mode — slate uses an opacity layer system; override everything explicitly */
+
+/* Header — darker plum so it reads as a distinct surface */
+[data-md-color-scheme="slate"] .md-header {
+  background-color: #2D0840 !important;
+}
+
+/* All navigation text */
+[data-md-color-scheme="slate"] .md-nav__link {
+  color: rgba(255, 175, 100, 0.75) !important;
+}
+[data-md-color-scheme="slate"] .md-nav__link:hover,
+[data-md-color-scheme="slate"] .md-nav__link--active {
+  color: #FFAF64 !important;
+}
+[data-md-color-scheme="slate"] .md-nav__title {
+  color: #FFAF64 !important;
+}
+
+/* "On this page" TOC rail */
+[data-md-color-scheme="slate"] .md-nav--secondary .md-nav__link {
+  color: rgba(255, 175, 100, 0.65) !important;
+}
+[data-md-color-scheme="slate"] .md-nav--secondary .md-nav__link--active {
+  color: #E2725B !important;
+}
+
+/* Main content body text */
+[data-md-color-scheme="slate"] .md-content .md-typeset {
+  color: #FFAF64;
+}
+[data-md-color-scheme="slate"] .md-typeset p,
+[data-md-color-scheme="slate"] .md-typeset li,
+[data-md-color-scheme="slate"] .md-typeset td,
+[data-md-color-scheme="slate"] .md-typeset th,
+[data-md-color-scheme="slate"] .md-typeset blockquote,
+[data-md-color-scheme="slate"] .md-typeset figcaption {
+  color: #FFAF64;
+}
+
+/* Headings — terra cotta */
 [data-md-color-scheme="slate"] .md-typeset h1,
 [data-md-color-scheme="slate"] .md-typeset h2,
-[data-md-color-scheme="slate"] .md-typeset h3 {
+[data-md-color-scheme="slate"] .md-typeset h3,
+[data-md-color-scheme="slate"] .md-typeset h4 {
   color: #E2725B;
 }
 
-/* Links hover */
+/* Links */
+[data-md-color-scheme="slate"] .md-typeset a {
+  color: #E2725B;
+}
 [data-md-color-scheme="slate"] .md-typeset a:hover {
   color: #CC5500;
 }
 
-/* Inline code in dark mode */
+/* Inline code */
 [data-md-color-scheme="slate"] .md-typeset code {
-  background-color: rgba(244, 164, 96, 0.1);
+  background-color: rgba(255, 175, 100, 0.1);
   color: #E2725B;
 }
 
-/* ── SHARED OVERRIDES ────────────────────────────────────────────────────
-   Elements that benefit from an explicit warm border or separator
-   ──────────────────────────────────────────────────────────────────────── */
+/* Cards / grid items */
+[data-md-color-scheme="slate"] .md-typeset .md-button {
+  color: #FFAF64;
+  border-color: rgba(255, 175, 100, 0.4);
+}
+[data-md-color-scheme="slate"] .md-typeset .md-button--primary {
+  background-color: #421258;
+  border-color: #421258;
+  color: #FFAF64;
+}
 
-/* Nav sidebar active item indicator */
+/* ── SHARED ──────────────────────────────────────────────────────────── */
+
 .md-nav__item--active > .md-nav__link {
   color: var(--md-accent-fg-color);
 }
 
-/* Highlighted search result */
 .md-search-result mark {
   background-color: var(--md-typeset-mark-color);
   color: inherit;
 }
 
-/* Top-of-page progress bar — burnt orange */
 .md-progress {
   background-color: #CC5500;
 }
 
-/* "Back to top" button */
 .md-top {
   background-color: var(--md-primary-fg-color);
   color: var(--md-primary-bg-color);

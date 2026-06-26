@@ -3,15 +3,15 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING
-
-if TYPE_CHECKING:
-    pass
 
 
 def _hex_to_rgb01(h: str) -> tuple[float, float, float]:
     h = h.lstrip("#")
     return (int(h[0:2], 16) / 255, int(h[2:4], 16) / 255, int(h[4:6], 16) / 255)
+
+
+def _rgb01_to_hex(r: float, g: float, b: float) -> str:
+    return f"#{int(r * 255):02x}{int(g * 255):02x}{int(b * 255):02x}"
 
 
 def _rgb_str_to_tuple(s: str) -> tuple[float, float, float]:
@@ -34,6 +34,7 @@ class Colormap:
     discrete:
         If True, treated as a qualitative palette (ListedColormap).
         If False, treated as a continuous gradient (LinearSegmentedColormap).
+
     """
 
     name: str
@@ -63,11 +64,7 @@ class Colormap:
         n = len(getattr(cmap, "colors", [])) or 256
         discrete = hasattr(cmap, "colors")
         colors = [
-            "#{:02x}{:02x}{:02x}".format(
-                int(cmap(i / (n - 1))[0] * 255),
-                int(cmap(i / (n - 1))[1] * 255),
-                int(cmap(i / (n - 1))[2] * 255),
-            )
+            _rgb01_to_hex(*cmap(i / (n - 1))[:3])
             for i in range(n)
         ]
         return cls(name=name, colors=colors, discrete=discrete)
@@ -83,7 +80,7 @@ class Colormap:
         for c in sampled:
             if c.startswith("rgb"):
                 r, g, b = _rgb_str_to_tuple(c)
-                colors.append("#{:02x}{:02x}{:02x}".format(int(r * 255), int(g * 255), int(b * 255)))
+                colors.append(_rgb01_to_hex(r, g, b))
             else:
                 colors.append(c)
         return cls(name=name, colors=colors, discrete=False)

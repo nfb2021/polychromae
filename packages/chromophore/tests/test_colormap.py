@@ -1,5 +1,4 @@
 """Tests for chromophore.Colormap."""
-import pytest
 
 from chromophore import Colormap
 

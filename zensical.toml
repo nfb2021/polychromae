@@ -1,17 +1,33 @@
 [project]
-# Read more: https://zensical.org/docs/setup/basics/#site_name
-site_name = "Polychromae - Documentation"
-site_description = "Colour tools for Python — pytochrome, chromophore, and more."
+site_name = "polychromae"
+site_description = "Colour tools for Python — pytochrome and chromophore."
 site_author = "Nicolas Bader"
-copyright = """
-Copyright &copy; 2026 Nicolas Bader
-"""
-# nav = [
-#   { "Get started" = "index.md" },
-#   { "Markdown in 5min" = "markdown.md" },
-# ]
-#extra_css = ["assets/stylesheets/extra.css"]
-#extra_javascript = ["assets/javascript/extra.js"]
+site_url = "https://nfb2021.github.io/polychromae/"
+copyright = "Copyright &copy; 2026 Nicolas Bader"
+
+repo_url = "https://github.com/nfb2021/polychromae"
+repo_name = "nfb2021/polychromae"
+edit_uri = "edit/main/docs/"
+
+nav = [
+  { "Home" = "index.md" },
+
+  { "pytochrome" = [
+    { "Overview" = "packages/pytochrome.md" },
+    { "API Reference" = "api/pytochrome.md" },
+  ]},
+
+  { "chromophore" = [
+    { "Overview" = "packages/chromophore.md" },
+    { "API Reference" = "api/chromophore.md" },
+  ]},
+
+  { "Development" = [
+    { "Changelog" = "changelog.md" },
+    { "Contributing" = "contributing.md" },
+    { "License" = "license.md" },
+  ]},
+]
 
 [project.theme]
 # change this to "classic" to use the traditional Material for MkDocs look.
@@ -88,7 +104,6 @@ alternate_style = true
 custom_checkbox = true
 [project.markdown_extensions.pymdownx.tilde]
 
-# Additional Extensions
 [project.markdown_extensions.pymdownx.snippets]
 
 [project.plugins.mkdocstrings.handlers.python]
@@ -118,3 +133,14 @@ separate_signature = true
 show_signature_annotations = true
 show_signature_type_parameters = true
 show_bases = false
+
+[project.theme.icon]
+repo = "fontawesome/brands/github"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/nfb2021/polychromae"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/python"
+link = "https://pypi.org/project/pytochrome/"

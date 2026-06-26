@@ -1,5 +1,4 @@
-"""
-p(h)ytochrome — GoG-informed scientific visualization style system.
+"""p(h)ytochrome — GoG-informed scientific visualization style system.
 
 Named after the plant photoreceptor that switches between two stable
 light states (Pr ↔ Pfr).  The 'h' is silent in the import; loud in
@@ -44,11 +43,11 @@ from __future__ import annotations
 from typing import Any
 
 # Register natural colormaps and backends
-import pytochrome._cmaps as _cmaps_mod  # noqa: F401
+import pytochrome._cmaps as _cmaps_mod
+
 _cmaps_mod.register()
 
 import pytochrome._backends  # noqa: F401
-
 from pytochrome._backends._base import BackendRegistry
 from pytochrome._tokens import (
     DARK,
@@ -62,10 +61,23 @@ from pytochrome._tokens import (
 
 __version__ = "0.1.0"
 __all__ = [
-    "dark", "light", "toggle", "theme", "aes", "save",
-    "colors", "cmap", "natural_cmaps",
-    "DARK", "LIGHT", "TOKENS", "ModeTokens", "ThemeTokens", "AesTokens",
-    "Pr", "Pfr",
+    "DARK",
+    "LIGHT",
+    "TOKENS",
+    "AesTokens",
+    "ModeTokens",
+    "Pfr",
+    "Pr",
+    "ThemeTokens",
+    "aes",
+    "cmap",
+    "colors",
+    "dark",
+    "light",
+    "natural_cmaps",
+    "save",
+    "theme",
+    "toggle",
 ]
 
 
@@ -100,8 +112,7 @@ Pr  = light  # red absorbing     — the resting light state
 # ---------------------------------------------------------------------------
 
 def theme(fig: Any, mode: str = "dark") -> Any:
-    """
-    Apply structural non-data ink only (GoG: theme layer).
+    """Apply structural non-data ink only (GoG: theme layer).
 
     Sets axes, grid, fonts, and backgrounds without touching the
     colour cycle or colourmap.  Returns *fig*.
@@ -111,8 +122,7 @@ def theme(fig: Any, mode: str = "dark") -> Any:
 
 
 def aes(fig: Any, mode: str = "dark") -> Any:
-    """
-    Apply data-ink colour encodings only (GoG: aesthetics layer).
+    """Apply data-ink colour encodings only (GoG: aesthetics layer).
 
     Sets the qualitative colour cycle and default colourmap without
     touching structural elements.  Returns *fig*.
@@ -131,8 +141,7 @@ def save(
     formats: tuple[str, ...] = ("svg", "png"),
     dpi: int = 150,
 ) -> None:
-    """
-    Save *fig* to *path* in one or more formats with transparent background.
+    """Save *fig* to *path* in one or more formats with transparent background.
 
     Parameters
     ----------
@@ -144,13 +153,14 @@ def save(
         Tuple of format strings: ``"svg"``, ``"png"``, ``"pdf"``.
     dpi:
         Resolution for raster formats. 150 for web, 300 for print.
+
     """
     from pathlib import Path
     out = Path(path)
     out.parent.mkdir(parents=True, exist_ok=True)
 
     try:
-        import matplotlib.figure as _mf  # noqa: PLC0415
+        import matplotlib.figure as _mf
         if isinstance(fig, _mf.Figure):
             for fmt in formats:
                 fig.savefig(
@@ -165,7 +175,7 @@ def save(
         pass
 
     try:
-        import plotly.graph_objects as go  # noqa: PLC0415
+        import plotly.graph_objects as go
         if isinstance(fig, go.Figure):
             for fmt in formats:
                 if fmt == "html":
@@ -189,6 +199,7 @@ class _ColorsNamespace:
     ``pc.colors.dark``  → DARK.aes  (AesTokens: .cycle, .cmap_sequential …)
     ``pc.colors.light`` → LIGHT.aes
     """
+
     dark  = DARK.aes
     light = LIGHT.aes
 
@@ -287,7 +298,7 @@ def _install_defaults() -> None:
         import matplotlib.pyplot as _plt
         _plt.rcParams["axes.prop_cycle"] = _plt.cycler(color=list(DARK.aes.cycle))
         _plt.rcParams["image.cmap"]      = _resolve_cmap(DARK.aes.cmap_sequential)
-    except Exception:  # noqa: BLE001
+    except Exception:
         pass
 
 

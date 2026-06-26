@@ -18,12 +18,14 @@ app = marimo.App(width="medium")
 
 @app.cell
 def _():
+    import importlib
+
     import marimo as mo
+    import matplotlib.pyplot as plt
     import numpy as np
     import pandas as pd
-    import matplotlib.pyplot as plt
     import plotly.graph_objects as go
-    import importlib
+
     import pytochrome._tokens as _tok
     importlib.reload(_tok)
     import pytochrome as _pc
@@ -31,7 +33,6 @@ def _():
     _pc.LIGHT = _tok.LIGHT
     import pytochrome as pc
     DARK, LIGHT = _tok.DARK, _tok.LIGHT
-    from pytochrome._tokens import _resolve_cmap
 
     return DARK, LIGHT, go, mo, np, pc, pd, plt
 
@@ -306,9 +307,8 @@ def _(mo, plt):
 @app.cell(hide_code=True)
 def _(plt):
 
-    import matplotlib.patches as _mp8
     import matplotlib.colors as _mc8
-    import numpy as _np8
+    import matplotlib.patches as _mp8
 
     _palettes8 = [('Forest Canopy', ('#2D5016', '#7A9E5A', '#5C4033', '#B8C5A0', '#D4AF37')), ('Desert Sunset', ('#CC5500', '#E2725B', '#F4A460', '#C08081', '#5D3A6D')), ('Woodland Trail', ('#01796F', '#8B4513', '#4F7942', '#EAE0C8', '#F5DEB3')), ('Coastal Morning', ('#9DC3E6', '#93E9BE', '#B5A192', '#FFF5EE', '#4682B4')), ('Sunset Glow', ('#FF4500', '#FF69B4', '#967BB6', '#FFD700', '#8B008B')), ('Canyon Sunset', ('#C04000', '#D2691E', '#C2B280', '#8A9A5B', '#4B5F78'))]
     _n8 = len(_palettes8)

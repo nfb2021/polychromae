@@ -7,8 +7,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 
 from pytochrome._backends._base import BackendRegistry, StyleBackend
-from pytochrome._tokens import AesTokens, ThemeTokens
-from pytochrome._tokens import _resolve_cmap
+from pytochrome._tokens import AesTokens, ThemeTokens, _resolve_cmap
 
 # ---------------------------------------------------------------------------
 # Font stacks
@@ -103,7 +102,7 @@ class MatplotlibBackend(StyleBackend):
 
             # 3D axes
             try:
-                from mpl_toolkits.mplot3d import Axes3D as _Axes3D  # noqa: PLC0415
+                from mpl_toolkits.mplot3d import Axes3D as _Axes3D
                 if isinstance(ax, _Axes3D):
                     ax.set_facecolor("none")
                     for pane in (ax.xaxis.pane, ax.yaxis.pane, ax.zaxis.pane):
@@ -113,9 +112,9 @@ class MatplotlibBackend(StyleBackend):
                 pass
 
         # Figure suptitle
-        if fig._suptitle is not None:  # noqa: SLF001
-            fig._suptitle.set_color(tokens.text_primary)        # noqa: SLF001
-            fig._suptitle.set_fontfamily(_FONT_TITLE_STACK)     # noqa: SLF001
+        if fig._suptitle is not None:
+            fig._suptitle.set_color(tokens.text_primary)
+            fig._suptitle.set_fontfamily(_FONT_TITLE_STACK)
 
         # rcParams — structural defaults for axes/artists added after apply_theme
         plt.rcParams.update({

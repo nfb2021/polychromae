@@ -2,7 +2,6 @@
 import re
 
 import pytest
-
 from pytochrome._tokens import DARK, LIGHT, AesTokens, ThemeTokens, _resolve_cmap
 
 _HEX  = re.compile(r"^#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?$")

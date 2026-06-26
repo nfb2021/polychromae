@@ -128,7 +128,7 @@ class PlotlyBackend(StyleBackend):
 
     def can_handle(self, fig: Any) -> bool:
         try:
-            import plotly.graph_objects as go  # noqa: PLC0415
+            import plotly.graph_objects as go
             return isinstance(fig, go.Figure)
         except ImportError:
             return False
@@ -139,8 +139,8 @@ class PlotlyBackend(StyleBackend):
 
     def apply_theme(self, fig: Any, tokens: ThemeTokens) -> Any:
         """Apply structural layout template (axes, grid, fonts, backgrounds)."""
-        import plotly.graph_objects as go  # noqa: PLC0415
-        import plotly.io as pio            # noqa: PLC0415
+        import plotly.graph_objects as go
+        import plotly.io as pio
 
         mode = BackendRegistry.read_tag(fig) or "dark"
         name = f"pytochrome_{mode}_theme"
@@ -158,8 +158,8 @@ class PlotlyBackend(StyleBackend):
 
     def apply_aes(self, fig: Any, tokens: AesTokens) -> Any:
         """Apply colour-encoding template (colorway, colorscale)."""
-        import plotly.graph_objects as go  # noqa: PLC0415
-        import plotly.io as pio            # noqa: PLC0415
+        import plotly.graph_objects as go
+        import plotly.io as pio
 
         mode = BackendRegistry.read_tag(fig) or "dark"
         name = f"pytochrome_{mode}_aes"
@@ -173,10 +173,10 @@ class PlotlyBackend(StyleBackend):
 
     def apply(self, fig: Any, tokens: Any) -> Any:
         """Apply complete mode: theme + aes as a single merged template."""
-        import plotly.graph_objects as go  # noqa: PLC0415
-        import plotly.io as pio            # noqa: PLC0415
+        import plotly.graph_objects as go
+        import plotly.io as pio
 
-        from pytochrome._tokens import DARK  # noqa: PLC0415
+        from pytochrome._tokens import DARK
         mode = "dark" if tokens is DARK else "light"
         name = f"pytochrome_{mode}"
 

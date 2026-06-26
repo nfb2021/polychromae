@@ -14,28 +14,66 @@ dev = [
 [tool.ruff]
 line-length = 88
 indent-width = 4
+exclude = ["**/explore.py"]  # marimo notebook — auto-generated, not hand-edited
 
 [tool.ruff.format]
-indent-style         = "space"
-quote-style          = "double"
-line-ending          = "auto"
+indent-style              = "space"
+quote-style               = "double"
+line-ending               = "auto"
 skip-magic-trailing-comma = false
 docstring-code-line-length = "dynamic"
-docstring-code-format = false
+docstring-code-format     = false
 
 [tool.ruff.lint]
 select = ["ALL"]
 ignore = [
-  "COM812",  # missing-trailing-comma (conflicts with formatter)
-  "D203",    # incorrect-blank-line-before-class (conflicts with D211)
-  "D213",    # multi-line-summary-second-line (conflicts with D212)
+  # formatter conflicts
+  "COM812",   # missing-trailing-comma
+  # docstring style — pick one set
+  "D203",     # one-blank-line-before-class (conflicts with D211)
+  "D213",     # multi-line-summary-second-line (conflicts with D212)
+  # type annotations — ty handles type checking; don't double up
+  "ANN001",   # missing arg annotation
+  "ANN002",   # missing *args annotation
+  "ANN003",   # missing **kwargs annotation
+  "ANN201",   # missing return annotation (public)
+  "ANN202",   # missing return annotation (private)
+  "ANN401",   # Any disallowed — backends deliberately return Any
+  # design choices
+  "FBT001",   # boolean positional arg — `discrete: bool` is intentional
+  "FBT002",   # boolean default — same
+  "FBT003",   # boolean positional in call — matplotlib ax.grid(True/False) API
+  "PLC0415",  # import not at top level — lazy imports for optional deps
+  "TRY003",   # long exception message — acceptable in small codebase
+  # Unicode intentional (Greek chars / en-dash in comments and docstrings)
+  "RUF002",
+  "RUF003",
+  # exception messages — small codebase, inline is fine
+  "EM101",
+  "EM102",
+  # matplotlib internals we must access (no public API for fig._suptitle)
+  "SLF001",
+  # intentional patterns
+  "C901",     # apply_theme complexity is inherent to the domain
+  "PLR2004",  # magic values (256 samples, 8 cycle colors) are self-explanatory
+  "ICN001",   # mpl/plt import alias — we use both names deliberately
+  "N806",     # _CRAMERI set is uppercase by convention (it's a constant set)
+  "TC001",    # keep token imports at top-level for readability
+  "BLE001",   # _install_defaults blind except is intentional optional-dep fallback
+  "S110",     # try/except/pass in _install_defaults is intentional
+  "D401",     # imperative mood in docstrings — not always natural
 ]
 fixable   = ["ALL"]
 unfixable = []
 
 [tool.ruff.lint.per-file-ignores]
-"**/tests/**" = ["ANN201", "D", "E402", "INP001", "S101"]
 "**/__init__.py" = ["E402"]
+# colour token/backend files: intentionally long inline comments and dict literals
+"**/_tokens.py"  = ["E501"]
+"**/_cmaps.py"   = ["E501"]
+"**/_mpl.py"     = ["E501"]
+"**/_plotly.py"  = ["E501"]
+"**/tests/**"    = ["ANN201", "D", "E402", "E501", "INP001", "PLR2004", "S101"]
 
 [tool.pytest.ini_options]
 testpaths = ["packages"]

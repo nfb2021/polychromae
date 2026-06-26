@@ -100,7 +100,7 @@ clean:
 
 
 # serve the documentation on localhost
-docs: venv
+docs:
     uv run zensical serve
 
 _ensure_clean:

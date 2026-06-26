@@ -2,14 +2,13 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import Any
+from typing import Any, ClassVar
 
 from pytochrome._tokens import AesTokens, ModeTokens, ThemeTokens
 
 
 class StyleBackend(ABC):
-    """
-    Contract for a pytochrome plotting backend.
+    """Contract for a pytochrome plotting backend.
 
     GoG separation — two distinct methods per layer:
       apply_theme  — non-data ink: axes, grid, fonts, backgrounds
@@ -22,29 +21,26 @@ class StyleBackend(ABC):
 
     @abstractmethod
     def apply_theme(self, fig: Any, tokens: ThemeTokens) -> Any:
-        """
-        Apply structural non-data ink to *fig* (GoG: theme layer).
+        """Apply structural non-data ink to *fig* (GoG: theme layer).
 
         Sets axes colours, grid, fonts, backgrounds.  Returns *fig*.
         """
 
     @abstractmethod
     def apply_aes(self, fig: Any, tokens: AesTokens) -> Any:
-        """
-        Apply data-ink colour encodings to *fig* (GoG: aesthetics layer).
+        """Apply data-ink colour encodings to *fig* (GoG: aesthetics layer).
 
         Sets the qualitative colour cycle and default colourmap.  Returns *fig*.
         """
 
     def apply(self, fig: Any, tokens: ModeTokens) -> Any:
-        """
-        Apply a complete mode: theme + aesthetics.  Returns *fig*.
+        """Apply a complete mode: theme + aesthetics.  Returns *fig*.
 
         This is the convenience entry-point called by pc.dark() / pc.light().
         """
         self.apply_theme(fig, tokens.theme)
         self.apply_aes(fig, tokens.aes)
-        from pytochrome._tokens import DARK  # noqa: PLC0415
+        from pytochrome._tokens import DARK
         BackendRegistry.tag(fig, "dark" if tokens is DARK else "light")
         return fig
 
@@ -58,13 +54,12 @@ class StyleBackend(ABC):
 
 
 class BackendRegistry:
-    """
-    Global registry of StyleBackend instances.
+    """Global registry of StyleBackend instances.
 
     Backends are checked in registration order; first match wins.
     """
 
-    _backends: list[StyleBackend] = []
+    _backends: ClassVar[list[StyleBackend]] = []
     _TAG = "__pytochrome_mode__"
 
     @classmethod

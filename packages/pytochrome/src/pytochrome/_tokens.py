@@ -1,5 +1,4 @@
-"""
-GoG-informed design tokens for pytochrome.
+"""GoG-informed design tokens for pytochrome.
 
 Two orthogonal layers (Wilkinson 2005):
 

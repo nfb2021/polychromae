@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 200 220" width="400" height="440" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Horseshoe: Pr (crimson left) → Pfr (indigo right) -->
+    <linearGradient id="mol" x1="55" y1="0" x2="145" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#c02828"/>
+      <stop offset="45%"  stop-color="#9030b0"/>
+      <stop offset="100%" stop-color="#2818b0"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.07"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="200" height="220" fill="#12131f"/>
+
+  <!-- Tetrapyrrole horseshoe: the phytochromobilin ligand shape.
+       sweep=0 = arch goes over the top (∩), arms hang down.
+       Inner void: x 70–130, top at y≈52, bottom at y≈147. -->
+  <path d="M 55,162 L 55,82 A 45,45 0 0 0 145,82 L 145,162"
+        fill="none" stroke="url(#mol)" stroke-width="30"
+        stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Binding-pocket glow -->
+  <ellipse cx="100" cy="115" rx="25" ry="28" fill="url(#glow)"/>
+
+  <!-- Data dots (these ARE the chromophore — data replaces the ligand).
+       Outer dots nudged to x=83/117 for 7.5 px clearance from walls. -->
+  <polyline points="83,130 91,117 100,126 109,112 117,121"
+            fill="none" stroke="white" stroke-width="1.1" opacity="0.28"
+            stroke-linejoin="round" stroke-linecap="round"/>
+  <line x1="79" y1="141" x2="121" y2="141"
+        stroke="white" stroke-width="0.7" opacity="0.13" stroke-dasharray="2.5 2.5"/>
+
+  <circle cx="83"  cy="130" r="5.5" fill="#30c8e6"/>
+  <circle cx="91"  cy="117" r="5.5" fill="#f99c2a"/>
+  <circle cx="100" cy="126" r="5.5" fill="#31cfb4"/>
+  <circle cx="109" cy="112" r="5.5" fill="#d596fa"/>
+  <circle cx="117" cy="121" r="5.5" fill="#fb928f"/>
+
+  <!-- Package name -->
+  <text x="100" y="204"
+        text-anchor="middle"
+        font-family="'Inter','Helvetica Neue',Arial,sans-serif"
+        font-size="17.5" font-weight="700" letter-spacing="-0.3"
+        fill="#c8c8e0">pytochrome</text>
+</svg>

@@ -1,0 +1,49 @@
+name: Run Tests with coverage
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test_coverage:
+    name: Test with coverage
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write  # to post coverage comment on PRs
+      contents: write  # to update coverage badge in repo
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+      - name: Install uv and set the python version
+        uses: astral-sh/setup-uv@fac544c07dec837d0ccb6301d7b5580bf5edae39 # v8.2.0
+        with:
+          python-version: 3.13
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install
+
+      - name: Install the Project
+        run: uv sync --locked --all-extras --dev
+
+      - name: Install Just Taskrunner
+        run: uv tool install rust-just
+
+      - name: Run Tests
+        run: just test
+
+      - name: Coverage comment
+        id: coverage_comment
+        uses: py-cov-action/python-coverage-comment-action@5d8df5979747514c914e1c5a12335a7cf9a2745f # v4.1
+        with:
+          GITHUB_TOKEN: ${{ github.token }}
+          VERBOSE: false

@@ -1,0 +1,62 @@
+[project]
+name = "pytochrome"
+version = "0.1.0"
+description = "Scientific visualization style system — dark/light themes for matplotlib and Plotly"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [{ name = "Nicolas Bader", email = "nico.bader@icloud.com" }]
+
+dependencies = [
+    "marimo>=0.23.10",
+    "matplotlib>=3.9",
+    "plotly>=5.24",
+]
+
+[project.optional-dependencies]
+cmaps = [
+    "cmcrameri>=1.9",   # Fabio Crameri scientific colour maps (batlow, vik, …)
+    "cmocean>=3.0",     # Oceanographic colour maps
+]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.9",
+]
+
+[project.urls]
+Repository = "https://github.com/nfb2021/pytochrome"
+
+# ---------------------------------------------------------------------------
+# Build
+# ---------------------------------------------------------------------------
+
+[build-system]
+requires = ["uv_build>=0.6"]
+build-backend = "uv_build"
+
+# ---------------------------------------------------------------------------
+# Ruff
+# ---------------------------------------------------------------------------
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "ANN", "RUF"]
+ignore = ["ANN101", "ANN102"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["ANN"]
+
+# ---------------------------------------------------------------------------
+# pytest
+# ---------------------------------------------------------------------------
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]

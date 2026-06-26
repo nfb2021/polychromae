@@ -1,0 +1,20 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: v0.3.7
+_src_path: gh:npikall/py-bootstrap
+author_email: nico.bader@icloud.com
+author_fullname: Nicolas Bader
+author_username: nfb2021
+changelog_tool: git-cliff
+ci_github: true
+ci_github_workflows:
+- Lint_Format
+- Documentation
+- Publish_PyPI
+- Release_GitHub
+- Test_Coverage
+- Test_Platforms
+ci_gitlab: false
+copyright_license: MIT
+include_docs: true
+project_name: polychromae
+repo_name: polychromae

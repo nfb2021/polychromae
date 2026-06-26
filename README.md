@@ -1,0 +1,12 @@
+# polychromae
+
+[![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
+
+> [!NOTE]
+> This project uses [`uv`][uv] for package management and [`just`][just] for task automation.
+> To install [`uv`][uv] check the [uv Docs][uv].
+> To install [`just`][just], follow the instructions in the [Just Docs][just].
+
+[just]: https://github.com/casey/just
+[uv]: https://docs.astral.sh/uv/getting-started/installation/
+[Handbook]: https://pydevtools.com/handbook/explanation/modern-python-project-setup-guide-for-ai-assistants/

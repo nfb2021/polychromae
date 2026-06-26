@@ -143,7 +143,7 @@ def _resolve_cmap(name: str) -> str:
     }
     if name in _CRAMERI:
         try:
-            import cmcrameri.cm  # noqa: F401
+            import cmcrameri.cm  # noqa: F401  # ty: ignore[unresolved-import]
         except ImportError:
             fallbacks = {
                 "batlow": "viridis",  # LIGHT sequential

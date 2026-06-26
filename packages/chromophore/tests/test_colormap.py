@@ -80,7 +80,7 @@ def test_repr_html_swatch() -> None:
 # Natural palettes
 # ---------------------------------------------------------------------------
 
-from chromophore import palettes  # noqa: E402
+from chromophore import palettes
 
 
 def test_palettes_names() -> None:

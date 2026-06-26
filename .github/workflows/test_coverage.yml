@@ -39,7 +39,7 @@ jobs:
         run: uv tool install rust-just
 
       - name: Run Tests
-        run: just test
+        run: uv run pytest packages/ --cov --cov-report=xml
 
       - name: Coverage comment
         id: coverage_comment

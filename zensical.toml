@@ -9,6 +9,8 @@ repo_url = "https://github.com/nfb2021/polychromae"
 repo_name = "nfb2021/polychromae"
 edit_uri = "edit/main/docs/"
 
+extra_css = ["assets/desert-sunset.css"]
+
 nav = [
   { "Home" = "index.md" },
 

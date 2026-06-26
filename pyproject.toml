@@ -80,6 +80,12 @@ unfixable = []
 testpaths = ["packages"]
 addopts   = "--tb=short --color=yes"
 
+[tool.ty]
+exclude = ["**/explore.py"]
+
+[tool.ty.rules]
+unresolved-import = "warn"  # optional deps (cmcrameri, marimo) not always installed
+
 [tool.coverage.run]
 relative_files = true
 source = ["packages"]

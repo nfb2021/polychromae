@@ -1,4 +1,5 @@
 """Plotly backend — handles go.Figure objects (2D and 3D traces)."""
+
 from __future__ import annotations
 
 from typing import Any
@@ -14,38 +15,39 @@ _FONT = "Space Grotesk, sans-serif"
 # Template builders — one per GoG layer
 # ---------------------------------------------------------------------------
 
+
 def _axis_defaults(tokens: ThemeTokens, showgrid: bool) -> dict:
     return {
-        "color":         tokens.text_secondary,
-        "gridcolor":     tokens.grid,
-        "gridwidth":     0.6,
-        "linecolor":     tokens.axis,
-        "linewidth":     0.8,
-        "tickcolor":     tokens.axis,
-        "tickwidth":     0.6,
-        "tickfont":      {"family": _FONT, "size": 10, "color": tokens.text_secondary},
-        "title":         {"font": {"family": _FONT, "size": 11, "color": tokens.text_primary}},
-        "showgrid":      showgrid,
-        "zeroline":      False,
+        "color": tokens.text_secondary,
+        "gridcolor": tokens.grid,
+        "gridwidth": 0.6,
+        "linecolor": tokens.axis,
+        "linewidth": 0.8,
+        "tickcolor": tokens.axis,
+        "tickwidth": 0.6,
+        "tickfont": {"family": _FONT, "size": 10, "color": tokens.text_secondary},
+        "title": {"font": {"family": _FONT, "size": 11, "color": tokens.text_primary}},
+        "showgrid": showgrid,
+        "zeroline": False,
         "zerolinecolor": tokens.axis,
         "zerolinewidth": 0.6,
-        "mirror":        False,
+        "mirror": False,
     }
 
 
 def _scene_axis(tokens: ThemeTokens) -> dict:
     return {
         "backgroundcolor": "rgba(0,0,0,0)",
-        "color":           tokens.text_secondary,
-        "gridcolor":       tokens.grid,
-        "gridwidth":       0.6,
-        "linecolor":       tokens.axis,
-        "linewidth":       0.8,
-        "tickcolor":       tokens.axis,
-        "tickwidth":       0.6,
-        "zerolinecolor":   tokens.axis,
-        "zerolinewidth":   0.6,
-        "spikecolor":      tokens.text_secondary,
+        "color": tokens.text_secondary,
+        "gridcolor": tokens.grid,
+        "gridwidth": 0.6,
+        "linecolor": tokens.axis,
+        "linewidth": 0.8,
+        "tickcolor": tokens.axis,
+        "tickwidth": 0.6,
+        "zerolinecolor": tokens.axis,
+        "zerolinewidth": 0.6,
+        "spikecolor": tokens.text_secondary,
     }
 
 
@@ -54,18 +56,18 @@ def _build_theme_template(tokens: ThemeTokens) -> dict:
     return {
         "layout": {
             "paper_bgcolor": "rgba(0,0,0,0)",
-            "plot_bgcolor":  "rgba(0,0,0,0)",
+            "plot_bgcolor": "rgba(0,0,0,0)",
             "font": {
                 "family": _FONT,
-                "color":  tokens.text_primary,
-                "size":   11,
+                "color": tokens.text_primary,
+                "size": 11,
                 "weight": 400,
             },
             "title": {
                 "font": {
                     "family": _FONT,
-                    "color":  tokens.text_primary,
-                    "size":   14,
+                    "color": tokens.text_primary,
+                    "size": 14,
                     "weight": 500,
                 },
                 "pad": {"t": 8, "b": 4},
@@ -74,25 +76,25 @@ def _build_theme_template(tokens: ThemeTokens) -> dict:
             "yaxis": _axis_defaults(tokens, showgrid=True),
             "scene": {
                 "bgcolor": "rgba(0,0,0,0)",
-                "xaxis":   _scene_axis(tokens),
-                "yaxis":   _scene_axis(tokens),
-                "zaxis":   _scene_axis(tokens),
+                "xaxis": _scene_axis(tokens),
+                "yaxis": _scene_axis(tokens),
+                "zaxis": _scene_axis(tokens),
             },
             "legend": {
-                "bgcolor":     "rgba(0,0,0,0)",
+                "bgcolor": "rgba(0,0,0,0)",
                 "bordercolor": "rgba(0,0,0,0)",
                 "borderwidth": 0,
-                "font":        {"family": _FONT, "size": 10, "color": tokens.text_primary},
+                "font": {"family": _FONT, "size": 10, "color": tokens.text_primary},
             },
             "hoverlabel": {
-                "bgcolor":     tokens.text_primary,
+                "bgcolor": tokens.text_primary,
                 "bordercolor": tokens.accent,
-                "font":        {"family": _FONT, "size": 11, "color": tokens.text_secondary},
-                "align":       "left",
+                "font": {"family": _FONT, "size": 11, "color": tokens.text_secondary},
+                "align": "left",
             },
             "modebar": {
-                "bgcolor":     "rgba(0,0,0,0)",
-                "color":       tokens.text_secondary,
+                "bgcolor": "rgba(0,0,0,0)",
+                "color": tokens.text_secondary,
                 "activecolor": tokens.accent,
             },
         }
@@ -111,9 +113,9 @@ def _build_aes_template(tokens: AesTokens) -> dict:
         "layout": {
             "colorway": list(tokens.cycle),
             "colorscale": {
-                "sequential":      _plotly_colorscale(tokens.cmap_sequential),
+                "sequential": _plotly_colorscale(tokens.cmap_sequential),
                 "sequentialminus": _plotly_colorscale(tokens.cmap_sequential),
-                "diverging":       _plotly_colorscale(tokens.cmap_diverging),
+                "diverging": _plotly_colorscale(tokens.cmap_diverging),
             },
         }
     }
@@ -123,12 +125,14 @@ def _build_aes_template(tokens: AesTokens) -> dict:
 # Backend
 # ---------------------------------------------------------------------------
 
+
 class PlotlyBackend(StyleBackend):
     """Style backend for Plotly go.Figure objects."""
 
     def can_handle(self, fig: Any) -> bool:
         try:
             import plotly.graph_objects as go
+
             return isinstance(fig, go.Figure)
         except ImportError:
             return False
@@ -177,6 +181,7 @@ class PlotlyBackend(StyleBackend):
         import plotly.io as pio
 
         from pytochrome._tokens import DARK
+
         mode = "dark" if tokens is DARK else "light"
         name = f"pytochrome_{mode}"
 

@@ -84,7 +84,14 @@ from chromophore import palettes
 
 
 def test_palettes_names() -> None:
-    expected = {"forest_canopy", "desert_sunset", "woodland_trail", "coastal_morning", "sunset_glow", "canyon_sunset"}
+    expected = {
+        "forest_canopy",
+        "desert_sunset",
+        "woodland_trail",
+        "coastal_morning",
+        "sunset_glow",
+        "canyon_sunset",
+    }
     assert set(palettes.keys()) == expected
 
 
@@ -105,6 +112,7 @@ def test_palettes_five_stops() -> None:
 
 def test_palettes_valid_hex() -> None:
     import re
+
     _HEX = re.compile(r"^#[0-9A-Fa-f]{6}$")
     for name, cm in palettes.items():
         for c in cm.colors:

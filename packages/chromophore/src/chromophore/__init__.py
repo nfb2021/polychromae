@@ -22,6 +22,7 @@ Usage
     import matplotlib.pyplot as plt
     plt.imshow(data, cmap="forest")
 """
+
 from __future__ import annotations
 
 from chromophore._colormap import Colormap

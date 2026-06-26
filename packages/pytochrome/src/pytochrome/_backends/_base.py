@@ -1,4 +1,5 @@
 """Abstract base class and registry for pytochrome style backends."""
+
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
@@ -41,6 +42,7 @@ class StyleBackend(ABC):
         self.apply_theme(fig, tokens.theme)
         self.apply_aes(fig, tokens.aes)
         from pytochrome._tokens import DARK
+
         BackendRegistry.tag(fig, "dark" if tokens is DARK else "light")
         return fig
 

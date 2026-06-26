@@ -38,6 +38,7 @@ Aliases for those who know the reference:
     pc.Pr(fig)   # light state — resting
     pc.Pfr(fig)  # dark state  — active
 """
+
 from __future__ import annotations
 
 from typing import Any
@@ -85,6 +86,7 @@ __all__ = [
 # Full-mode convenience functions (theme + aes)
 # ---------------------------------------------------------------------------
 
+
 def dark(fig: Any) -> Any:
     """Apply full dark style to *fig* (Pfr state). Returns *fig*."""
     return BackendRegistry.find(fig).apply(fig, DARK)
@@ -103,13 +105,14 @@ def toggle(fig: Any) -> Any:
 
 
 # Phytochrome state aliases
-Pfr = dark   # far-red absorbing — the active dark state
-Pr  = light  # red absorbing     — the resting light state
+Pfr = dark  # far-red absorbing — the active dark state
+Pr = light  # red absorbing     — the resting light state
 
 
 # ---------------------------------------------------------------------------
 # GoG-separated functions
 # ---------------------------------------------------------------------------
+
 
 def theme(fig: Any, mode: str = "dark") -> Any:
     """Apply structural non-data ink only (GoG: theme layer).
@@ -135,6 +138,7 @@ def aes(fig: Any, mode: str = "dark") -> Any:
 # Save
 # ---------------------------------------------------------------------------
 
+
 def save(
     fig: Any,
     path: str,
@@ -156,11 +160,13 @@ def save(
 
     """
     from pathlib import Path
+
     out = Path(path)
     out.parent.mkdir(parents=True, exist_ok=True)
 
     try:
         import matplotlib.figure as _mf
+
         if isinstance(fig, _mf.Figure):
             for fmt in formats:
                 fig.savefig(
@@ -176,6 +182,7 @@ def save(
 
     try:
         import plotly.graph_objects as go
+
         if isinstance(fig, go.Figure):
             for fmt in formats:
                 if fmt == "html":
@@ -193,6 +200,7 @@ def save(
 # Colour / cmap accessors
 # ---------------------------------------------------------------------------
 
+
 class _ColorsNamespace:
     """Access colour tokens by mode.
 
@@ -200,7 +208,7 @@ class _ColorsNamespace:
     ``pc.colors.light`` → LIGHT.aes
     """
 
-    dark  = DARK.aes
+    dark = DARK.aes
     light = LIGHT.aes
 
     def __repr__(self) -> str:
@@ -232,7 +240,7 @@ class _CmapNamespace:
                 f"(.sequential='{self.sequential}', .diverging='{self.diverging}')"
             )
 
-    dark  = _Mode(DARK.aes)
+    dark = _Mode(DARK.aes)
     light = _Mode(LIGHT.aes)
 
     def __repr__(self) -> str:
@@ -240,7 +248,7 @@ class _CmapNamespace:
 
 
 colors = _ColorsNamespace()
-cmap   = _CmapNamespace()
+cmap = _CmapNamespace()
 
 
 class _NaturalCmapsNamespace:
@@ -259,12 +267,12 @@ class _NaturalCmapsNamespace:
         tokens = pc.DARK.aes._replace(cmap_sequential=pc.natural_cmaps.desert_sunset)
     """
 
-    forest_canopy   = "pytochrome_forest_canopy"
-    desert_sunset   = "pytochrome_desert_sunset"
-    woodland_trail  = "pytochrome_woodland_trail"
+    forest_canopy = "pytochrome_forest_canopy"
+    desert_sunset = "pytochrome_desert_sunset"
+    woodland_trail = "pytochrome_woodland_trail"
     coastal_morning = "pytochrome_coastal_morning"
-    sunset_glow     = "pytochrome_sunset_glow"
-    canyon_sunset   = "pytochrome_canyon_sunset"
+    sunset_glow = "pytochrome_sunset_glow"
+    canyon_sunset = "pytochrome_canyon_sunset"
 
     all: tuple[str, ...] = (
         "pytochrome_forest_canopy",
@@ -276,10 +284,17 @@ class _NaturalCmapsNamespace:
     )
 
     def __repr__(self) -> str:
-        names = ", ".join(f".{k}" for k in (
-            "forest_canopy", "desert_sunset", "woodland_trail",
-            "coastal_morning", "sunset_glow", "canyon_sunset",
-        ))
+        names = ", ".join(
+            f".{k}"
+            for k in (
+                "forest_canopy",
+                "desert_sunset",
+                "woodland_trail",
+                "coastal_morning",
+                "sunset_glow",
+                "canyon_sunset",
+            )
+        )
         return f"pytochrome.natural_cmaps  ({names})"
 
 
@@ -293,11 +308,13 @@ natural_cmaps = _NaturalCmapsNamespace()
 # so any ax.plot() / ax.scatter() / ax.imshow() call uses them without
 # needing an explicit pc.dark(fig) / pc.aes(fig) call.
 
+
 def _install_defaults() -> None:
     try:
         import matplotlib.pyplot as _plt
+
         _plt.rcParams["axes.prop_cycle"] = _plt.cycler(color=list(DARK.aes.cycle))
-        _plt.rcParams["image.cmap"]      = _resolve_cmap(DARK.aes.cmap_sequential)
+        _plt.rcParams["image.cmap"] = _resolve_cmap(DARK.aes.cmap_sequential)
     except Exception:
         pass
 

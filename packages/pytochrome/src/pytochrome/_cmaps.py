@@ -1,4 +1,5 @@
 """Pytochrome colormap registration — natural palettes sourced from chromophore."""
+
 from __future__ import annotations
 
 from chromophore import palettes as _palettes
@@ -16,7 +17,10 @@ def as_plotly_colorscale(name: str) -> list[list]:
 
 def is_natural(name: str) -> bool:
     """True if *name* refers to one of the pytochrome natural palettes."""
-    return name.startswith(PREFIX) and name.removeprefix(PREFIX).removesuffix("_r") in _palettes
+    return (
+        name.startswith(PREFIX)
+        and name.removeprefix(PREFIX).removesuffix("_r") in _palettes
+    )
 
 
 def register() -> None:

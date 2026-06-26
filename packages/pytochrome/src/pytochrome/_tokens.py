@@ -10,6 +10,7 @@ Two orthogonal layers (Wilkinson 2005):
 
   ModeTokens   — composed from both; one instance per display mode.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -19,11 +20,11 @@ from dataclasses import dataclass, field
 class ThemeTokens:
     """Non-data ink — structural elements around the data."""
 
-    text_primary: str = ""    # axis labels, title, legend text
+    text_primary: str = ""  # axis labels, title, legend text
     text_secondary: str = ""  # tick labels, minor annotations
-    axis: str = ""            # rgba() — spines and axis lines
-    grid: str = ""            # rgba() — grid lines, very faint
-    accent: str = ""          # brand highlight; not a data encoding
+    axis: str = ""  # rgba() — spines and axis lines
+    grid: str = ""  # rgba() — grid lines, very faint
+    accent: str = ""  # brand highlight; not a data encoding
 
 
 @dataclass(frozen=True)
@@ -35,7 +36,7 @@ class AesTokens:
     # LIGHT → Manim E-level: dark/saturated, high contrast on light backgrounds
 
     cmap_sequential: str = "viridis"  # monotone continuous; fallback always available
-    cmap_diverging: str = "RdBu_r"   # symmetric-around-zero; fallback always available
+    cmap_diverging: str = "RdBu_r"  # symmetric-around-zero; fallback always available
 
 
 @dataclass(frozen=True)
@@ -52,11 +53,11 @@ class ModeTokens:
 
 DARK = ModeTokens(
     theme=ThemeTokens(
-        text_primary="#E1E6B9",             # canvod-nordic g1 — warm cream
-        text_secondary="#C4D4BC",           # light sage — readable on dark
-        axis="rgba(255,255,255,0.25)",      # semi-transparent white spine
-        grid="rgba(255,255,255,0.07)",      # barely-there white grid
-        accent="#ABC8A4",                   # canvod-nordic g3
+        text_primary="#E1E6B9",  # canvod-nordic g1 — warm cream
+        text_secondary="#C4D4BC",  # light sage — readable on dark
+        axis="rgba(255,255,255,0.25)",  # semi-transparent white spine
+        grid="rgba(255,255,255,0.07)",  # barely-there white grid
+        accent="#ABC8A4",  # canvod-nordic g3
     ),
     aes=AesTokens(
         # Cyber/nordic palette — luminous on dark backgrounds (L=0.77, WCAG 7.7–9.8:1).
@@ -77,7 +78,7 @@ DARK = ModeTokens(
             "#e4c22f",  # yellow    H= 95°  L=0.82
         ),
         cmap_sequential="lajolla",  # Crameri cream→brown; pops on dark — falls back to plasma
-        cmap_diverging="vik",       # Crameri blue–white–red          — falls back to RdYlBu_r
+        cmap_diverging="vik",  # Crameri blue–white–red          — falls back to RdYlBu_r
     ),
 )
 
@@ -87,11 +88,11 @@ DARK = ModeTokens(
 
 LIGHT = ModeTokens(
     theme=ThemeTokens(
-        text_primary="#183128",             # canvod-nordic g5 — deep forest
-        text_secondary="#2A3828",           # near-black forest — clearly darker than dark mode
-        axis="rgba(0,0,0,0.30)",           # semi-transparent dark spine
-        grid="rgba(0,0,0,0.07)",           # barely-there dark grid
-        accent="#375D3B",                   # canvod-nordic g4
+        text_primary="#183128",  # canvod-nordic g5 — deep forest
+        text_secondary="#2A3828",  # near-black forest — clearly darker than dark mode
+        axis="rgba(0,0,0,0.30)",  # semi-transparent dark spine
+        grid="rgba(0,0,0,0.07)",  # barely-there dark grid
+        accent="#375D3B",  # canvod-nordic g4
     ),
     aes=AesTokens(
         # Botanical/paper palette — earthy, saturated, high contrast on white (L=0.50,
@@ -110,7 +111,7 @@ LIGHT = ModeTokens(
             "#5f6b13",  # sage    H=117°  L=0.50
         ),
         cmap_sequential="batlow",  # Crameri dark-blue→peach; reads on white — falls back to viridis
-        cmap_diverging="cork",     # Crameri blue–grey–green; balanced     — falls back to RdBu_r
+        cmap_diverging="cork",  # Crameri blue–grey–green; balanced     — falls back to RdBu_r
     ),
 )
 
@@ -120,19 +121,35 @@ TOKENS: dict[str, ModeTokens] = {"dark": DARK, "light": LIGHT}
 def _resolve_cmap(name: str) -> str:
     """Return the colourmap name, falling back if cmcrameri is not installed."""
     _CRAMERI = {
-        "batlow", "vik", "berlin", "roma", "cork", "oslo", "davos",
-        "hawaii", "lapaz", "nuuk", "tokyo", "turku", "imola",
-        "acton", "bilbao", "lajolla", "broc", "lisbon", "tofino",
+        "batlow",
+        "vik",
+        "berlin",
+        "roma",
+        "cork",
+        "oslo",
+        "davos",
+        "hawaii",
+        "lapaz",
+        "nuuk",
+        "tokyo",
+        "turku",
+        "imola",
+        "acton",
+        "bilbao",
+        "lajolla",
+        "broc",
+        "lisbon",
+        "tofino",
     }
     if name in _CRAMERI:
         try:
             import cmcrameri.cm  # noqa: F401
         except ImportError:
             fallbacks = {
-                "batlow":  "viridis",    # LIGHT sequential
-                "lajolla": "plasma",     # DARK sequential — cream→brown analogue
-                "vik":     "RdYlBu_r",  # DARK diverging
-                "cork":    "RdBu_r",    # LIGHT diverging
+                "batlow": "viridis",  # LIGHT sequential
+                "lajolla": "plasma",  # DARK sequential — cream→brown analogue
+                "vik": "RdYlBu_r",  # DARK diverging
+                "cork": "RdBu_r",  # LIGHT diverging
             }
             return fallbacks.get(name, "viridis")
     return name

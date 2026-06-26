@@ -1,4 +1,5 @@
 """Core Colormap class — cross-framework colourmap container."""
+
 from __future__ import annotations
 
 import re
@@ -18,7 +19,8 @@ def _rgb_str_to_tuple(s: str) -> tuple[float, float, float]:
     m = re.match(r"rgb\((\d+),?\s*(\d+),?\s*(\d+)\)", s)
     if not m:
         raise ValueError(f"Cannot parse rgb string: {s!r}")
-    return tuple(int(x) / 255 for x in m.groups())  # type: ignore[return-value]
+    r, g, b = (int(x) / 255 for x in m.groups())
+    return r, g, b
 
 
 @dataclass
@@ -63,10 +65,7 @@ class Colormap:
         cmap = mpl.colormaps[name]
         n = len(getattr(cmap, "colors", [])) or 256
         discrete = hasattr(cmap, "colors")
-        colors = [
-            _rgb01_to_hex(*cmap(i / (n - 1))[:3])
-            for i in range(n)
-        ]
+        colors = [_rgb01_to_hex(*cmap(i / (n - 1))[:3]) for i in range(n)]
         return cls(name=name, colors=colors, discrete=discrete)
 
     @classmethod

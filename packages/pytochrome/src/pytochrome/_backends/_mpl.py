@@ -1,9 +1,11 @@
 """Matplotlib backend — handles Figure objects (2D and 3D axes)."""
+
 from __future__ import annotations
 
 from typing import Any
 
 import matplotlib
+import matplotlib.figure
 import matplotlib.pyplot as plt
 
 from pytochrome._backends._base import BackendRegistry, StyleBackend
@@ -13,12 +15,18 @@ from pytochrome._tokens import AesTokens, ThemeTokens, _resolve_cmap
 # Font stacks
 # ---------------------------------------------------------------------------
 
-_FONT_STACK       = ["Space Grotesk", "Helvetica Neue", "Arial", "sans-serif"]
+_FONT_STACK = ["Space Grotesk", "Helvetica Neue", "Arial", "sans-serif"]
 # "Space Grotesk Medium" is registered as a separate family on macOS.
 # Use it as the first choice for titles to get medium weight without
 # triggering a numeric-weight lookup warning.
-_FONT_TITLE_STACK = ["Space Grotesk Medium", "Space Grotesk", "Helvetica Neue", "Arial", "sans-serif"]
-_MONO_STACK       = ["SF Mono", "Fira Mono", "DejaVu Sans Mono", "Courier New"]
+_FONT_TITLE_STACK = [
+    "Space Grotesk Medium",
+    "Space Grotesk",
+    "Helvetica Neue",
+    "Arial",
+    "sans-serif",
+]
+_MONO_STACK = ["SF Mono", "Fira Mono", "DejaVu Sans Mono", "Courier New"]
 
 
 def _rgba_to_mpl(rgba: str) -> tuple[float, float, float, float]:
@@ -103,6 +111,7 @@ class MatplotlibBackend(StyleBackend):
             # 3D axes
             try:
                 from mpl_toolkits.mplot3d import Axes3D as _Axes3D
+
                 if isinstance(ax, _Axes3D):
                     ax.set_facecolor("none")
                     for pane in (ax.xaxis.pane, ax.yaxis.pane, ax.zaxis.pane):
@@ -117,53 +126,55 @@ class MatplotlibBackend(StyleBackend):
             fig._suptitle.set_fontfamily(_FONT_TITLE_STACK)
 
         # rcParams — structural defaults for axes/artists added after apply_theme
-        plt.rcParams.update({
-            "font.family":     "sans-serif",
-            "font.sans-serif": _FONT_STACK,
-            "font.monospace":  _MONO_STACK,
-            "font.size":       11,
-            "text.color":      tokens.text_primary,
-            "axes.facecolor":  "none",
-            "axes.edgecolor":  axis_color,
-            "axes.labelcolor": tokens.text_primary,
-            "axes.labelsize":  11,
-            "axes.titlecolor": tokens.text_primary,
-            "axes.titlesize":  14,
-            "axes.spines.top":   False,
-            "axes.spines.right": False,
-            "xtick.color":      tokens.text_secondary,
-            "ytick.color":      tokens.text_secondary,
-            "xtick.labelcolor": tokens.text_secondary,
-            "ytick.labelcolor": tokens.text_secondary,
-            "xtick.labelsize":  10,
-            "ytick.labelsize":  10,
-            "xtick.direction":  "in",
-            "ytick.direction":  "in",
-            "xtick.major.width": 0.6,
-            "ytick.major.width": 0.6,
-            "xtick.major.size":  4.0,
-            "ytick.major.size":  4.0,
-            "xtick.minor.size":  2.0,
-            "ytick.minor.size":  2.0,
-            "axes.grid":        True,
-            "axes.grid.axis":   "y",
-            "grid.color":       grid_color,
-            "grid.linewidth":   0.6,
-            "grid.linestyle":   "-",
-            "grid.alpha":       1.0,
-            "legend.facecolor":   "none",
-            "legend.edgecolor":   (0, 0, 0, 0),
-            "legend.labelcolor":  tokens.text_primary,
-            "legend.fontsize":    10,
-            "legend.frameon":     False,
-            "legend.framealpha":  0.0,
-            "figure.dpi":        150,
-            "figure.facecolor":  "none",
-            "figure.edgecolor":  "none",
-            "savefig.facecolor": "none",
-            "savefig.edgecolor": "none",
-            "savefig.transparent": True,
-        })
+        plt.rcParams.update(
+            {
+                "font.family": "sans-serif",
+                "font.sans-serif": _FONT_STACK,
+                "font.monospace": _MONO_STACK,
+                "font.size": 11,
+                "text.color": tokens.text_primary,
+                "axes.facecolor": "none",
+                "axes.edgecolor": axis_color,
+                "axes.labelcolor": tokens.text_primary,
+                "axes.labelsize": 11,
+                "axes.titlecolor": tokens.text_primary,
+                "axes.titlesize": 14,
+                "axes.spines.top": False,
+                "axes.spines.right": False,
+                "xtick.color": tokens.text_secondary,
+                "ytick.color": tokens.text_secondary,
+                "xtick.labelcolor": tokens.text_secondary,
+                "ytick.labelcolor": tokens.text_secondary,
+                "xtick.labelsize": 10,
+                "ytick.labelsize": 10,
+                "xtick.direction": "in",
+                "ytick.direction": "in",
+                "xtick.major.width": 0.6,
+                "ytick.major.width": 0.6,
+                "xtick.major.size": 4.0,
+                "ytick.major.size": 4.0,
+                "xtick.minor.size": 2.0,
+                "ytick.minor.size": 2.0,
+                "axes.grid": True,
+                "axes.grid.axis": "y",
+                "grid.color": grid_color,
+                "grid.linewidth": 0.6,
+                "grid.linestyle": "-",
+                "grid.alpha": 1.0,
+                "legend.facecolor": "none",
+                "legend.edgecolor": (0, 0, 0, 0),
+                "legend.labelcolor": tokens.text_primary,
+                "legend.fontsize": 10,
+                "legend.frameon": False,
+                "legend.framealpha": 0.0,
+                "figure.dpi": 150,
+                "figure.facecolor": "none",
+                "figure.edgecolor": "none",
+                "savefig.facecolor": "none",
+                "savefig.edgecolor": "none",
+                "savefig.transparent": True,
+            }
+        )
 
         return fig
 
@@ -174,7 +185,7 @@ class MatplotlibBackend(StyleBackend):
     def apply_aes(self, fig: Any, tokens: AesTokens) -> Any:
         """Apply data-ink colour encodings: qualitative cycle and default cmap."""
         plt.rcParams["axes.prop_cycle"] = plt.cycler(color=list(tokens.cycle))
-        plt.rcParams["image.cmap"]      = _resolve_cmap(tokens.cmap_sequential)
+        plt.rcParams["image.cmap"] = _resolve_cmap(tokens.cmap_sequential)
         return fig
 
     # ------------------------------------------------------------------
